@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architecture Portfolio</title>
+    <!-- Google Fonts: Elegant Serif & Clean Sans-serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #FDFBF7;
+            --text-primary: #1A1A1A;
+            --text-secondary: #8C827A;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Inter', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(253,251,247,0.9) 0%, rgba(253,251,247,0) 100%);
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        nav a {
+            margin-left: 2.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            transition: var(--transition-smooth);
+            opacity: 0.7;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 5%;
+            margin-top: 5rem;
+        }
+
+        .hero h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 300;
+            line-height: 1.2;
+            max-width: 900px;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 500px;
+        }
+
+        /* Project Grid */
+        .projects {
+            padding: 0 5% 10rem;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 4rem;
+            border-bottom: 1px solid rgba(140, 130, 122, 0.2);
+            padding-bottom: 1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5rem 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-card {
+            cursor: pointer;
+        }
+
+        .image-wrapper {
+            width: 100%;
+            height: 550px;
+            overflow: hidden;
+            background-color: #EFECE6;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+            filter: grayscale(20%);
+        }
+
+        .project-card:hover .image-wrapper img {
+            transform: scale(1.03);
+            filter: grayscale(0%);
+        }
+
+        .project-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .project-title {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            font-weight: 400;
+        }
+
+        .project-category {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            letter-spacing: 0.05em;
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 5%;
+            border-top: 1px solid rgba(140, 130, 122, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            transition: var(--transition-smooth);
+        }
+
+        .social-links a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo">STUDIO ARCHITECTURE</a>
+        <nav>
+            <a href="#projects">Work</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Structure, material, and light forming spatial experience.</h1>
+            <p>자연 재료와 기하학적 형태의 상호작용을 다루는 건축 포트폴리오입니다.</p>
+        </section>
+
+        <section class="projects" id="projects">
+            <h2 class="section-title">Selected Projects</h2>
+            <div class="grid">
+                
+                <!-- Project 1 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <!-- 이미지 경로 지정 (예: 파빌리온 렌더링/사진) -->
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Pavilion Project">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">01. Biodegradable Vault Pavilion</h3>
+                        <span class="project-category">Pavilion / 2026</span>
+                    </div>
+                </article>
+
+                <!-- Project 2 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Architecture Project">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">02. Interlocking Shell Structure</h3>
+                        <span class="project-category">Research & Installation</span>
+                    </div>
+                </article>
+
+                <!-- Project 3 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="Urban Design">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">03. All City Campus Masterplan</h3>
+                        <span class="project-category">Adaptive Reuse / Urban</span>
+                    </div>
+                </article>
+
+                <!-- Project 4 -->
+                <article class="project-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80" alt="Material Study">
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">04. Material & Light Study</h3>
+                        <span class="project-category">Exhibition & Model</span>
+                    </div>
+                </article>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <span class="footer-text">© 2026 Architectural Studio. All rights reserved.</span>
+        <div class="social-links">
+            <a href="#">Instagram</a>
+            <a href="#">LinkedIn</a>
+            <a href="mailto:contact@architecture.com">Email</a>
+        </div>
+    </footer>
+
+</body>
+</html>
