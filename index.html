@@ -297,4 +297,398 @@
         .feed-card-info {
             padding: 1rem 1.2rem;
             display: flex;
-            justify-content: space-between
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feed-card-title {
+            font-size: 8.5pt;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+        }
+
+        .feed-card-sub {
+            font-size: 7.5pt;
+            color: #888888;
+            letter-spacing: 0.05em;
+        }
+
+        /* ----------------------------------
+           VIEW 3: Single Project Detail View
+        ---------------------------------- */
+        .detail-view {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-light);
+            color: #1A1A1A;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity var(--transition-speed), visibility var(--transition-speed);
+            z-index: 30;
+            overflow-y: auto;
+            padding: 8rem 6% 5rem;
+        }
+
+        .detail-view.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .detail-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .detail-header {
+            margin-bottom: 3rem;
+            border-bottom: 1px solid #EEEEEE;
+            padding-bottom: 2rem;
+        }
+
+        .detail-title {
+            font-size: 16pt;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-meta {
+            font-size: 8.5pt;
+            color: #777777;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .detail-hero-img {
+            width: 100%;
+            max-height: 70vh;
+            object-fit: cover;
+            margin-bottom: 3rem;
+        }
+
+        .detail-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            line-height: 1.8;
+            font-size: 9pt;
+            color: #444444;
+        }
+
+        @media (max-width: 768px) {
+            .detail-content { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .detail-specs {
+            border-top: 1px solid #EEEEEE;
+            padding-top: 1rem;
+            font-size: 8pt;
+        }
+
+        .detail-specs-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .back-btn {
+            position: fixed;
+            bottom: 3rem;
+            left: 6%;
+            z-index: 201;
+            font-size: 8pt;
+            letter-spacing: 0.12em;
+            color: #1A1A1A;
+            cursor: pointer;
+            display: none;
+            text-transform: uppercase;
+            font-weight: 600;
+            background: rgba(255,255,255,0.9);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        body.light-theme .back-btn {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Header -->
+    <header>
+        <div class="logo" id="logoBtn">STUDIO VARA</div>
+        <nav>
+            <a id="navProjects">PROJECTS</a>
+            <a id="navAbout">ABOUT</a>
+            <a id="navContact">CONTACT</a>
+        </nav>
+    </header>
+
+    <!-- VIEW 1: Wheel Scroll Main View -->
+    <div class="slider-view" id="sliderView">
+        <div class="bg-container">
+            <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
+        </div>
+
+        <div class="overlay"></div>
+
+        <main class="project-slider">
+            <div class="project-list" id="projectList">
+                <div class="project-wrapper active" data-id="0">
+                    <div class="project-item">01. BIODEGRADABLE VAULT PAVILION</div>
+                    <div class="project-type">PAVILION / TEMPORARY STRUCTURE</div>
+                </div>
+
+                <div class="project-wrapper" data-id="1">
+                    <div class="project-item">02. INTERLOCKING SHELL INSTALLATION</div>
+                    <div class="project-type">RESEARCH / INSTALLATION</div>
+                </div>
+
+                <div class="project-wrapper" data-id="2">
+                    <div class="project-item">03. ALL CITY CAMPUS MASTERPLAN</div>
+                    <div class="project-type">URBAN / ADAPTIVE REUSE</div>
+                </div>
+
+                <div class="project-wrapper" data-id="3">
+                    <div class="project-item">04. LIGHT & MATERIAL GALLERY</div>
+                    <div class="project-type">CULTURAL / EXHIBITION</div>
+                </div>
+            </div>
+        </main>
+
+        <div class="footer-info">
+            <span id="currentIndexText">01</span> / 04
+        </div>
+
+        <div class="scroll-indicator">
+            SCROLL TO EXPLORE
+        </div>
+    </div>
+
+    <!-- VIEW 2: Projects Feed View (Instagram Style Grid) -->
+    <div class="grid-view" id="gridView">
+        <div class="feed-grid">
+            <div class="feed-card" data-id="0">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Project 1">
+                <div class="feed-card-info">
+                    <div class="feed-card-title">01. BIODEGRADABLE VAULT</div>
+                    <div class="feed-card-sub">2026</div>
+                </div>
+            </div>
+            <div class="feed-card" data-id="1">
+                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Project 2">
+                <div class="feed-card-info">
+                    <div class="feed-card-title">02. INTERLOCKING SHELL</div>
+                    <div class="feed-card-sub">2025</div>
+                </div>
+            </div>
+            <div class="feed-card" data-id="2">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Project 3">
+                <div class="feed-card-info">
+                    <div class="feed-card-title">03. ALL CITY CAMPUS</div>
+                    <div class="feed-card-sub">2026</div>
+                </div>
+            </div>
+            <div class="feed-card" data-id="3">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Project 4">
+                <div class="feed-card-info">
+                    <div class="feed-card-title">04. LIGHT & MATERIAL GALLERY</div>
+                    <div class="feed-card-sub">2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 3: Single Project Detail View -->
+    <div class="detail-view" id="detailView">
+        <div class="detail-container">
+            <div class="detail-header">
+                <h1 class="detail-title" id="detailTitle">PROJECT TITLE</h1>
+                <div class="detail-meta" id="detailMeta">CATEGORY / YEAR</div>
+            </div>
+            <img class="detail-hero-img" id="detailImg" src="" alt="Detail Image">
+            <div class="detail-content">
+                <div>
+                    <p id="detailDesc">프로젝트 상세 설명 내용이 들어가는 공간입니다. 자연 재료와 기하학적 형태의 상호작용을 탐구하며, 생분해성 구조 모듈 및 가벼운 쉘 구조 시스템을 제안합니다.</p>
+                </div>
+                <div class="detail-specs">
+                    <div class="detail-specs-row"><span>Location</span><span id="specLoc">Seoul, Korea</span></div>
+                    <div class="detail-specs-row"><span>Program</span><span id="specProg">Pavilion</span></div>
+                    <div class="detail-specs-row"><span>Scale</span><span id="specScale">4.0m x 1.5m</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-btn" id="backBtn">← BACK</div>
+
+    <script>
+        const projectsData = [
+            {
+                title: "01. BIODEGRADABLE VAULT PAVILION",
+                meta: "Pavilion / Temporary Structure / 2026",
+                img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
+                desc: "100% 생분해성 소재와 모듈러 상호 맞물림(Interlocking) 구조를 응용한 반원형 파빌리온 연구 프로젝트입니다. 거북이 등껍질의 봉합선 구조와 탄소 결합 트러스 시스템을 결합하여 재료의 약한 압축력을 지지하도록 설계되었습니다.",
+                location: "Seoul, Korea",
+                program: "Pavilion",
+                scale: "4.0m x 1.5m"
+            },
+            {
+                title: "02. INTERLOCKING SHELL INSTALLATION",
+                meta: "Research / Installation / 2025",
+                img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80",
+                desc: "3D 프린팅 접합 조인트와 천연 소재를 활용한 쉘 파빌리온 구조 실험입니다. 최소한의 자재로 구조적 일체성을 확보하는 조인트 모듈을 개발했습니다.",
+                location: "Gyeonggi, Korea",
+                program: "Installation",
+                scale: "3.5m x 2.0m"
+            },
+            {
+                title: "03. ALL CITY CAMPUS MASTERPLAN",
+                meta: "Urban / Adaptive Reuse / 2026",
+                img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
+                desc: "기존 도시 유휴 부지 및 학교 시설을 지역 커뮤니티 공간으로 재해석한 유연한 단지 계획 프로젝트입니다.",
+                location: "Gimhae, Korea",
+                program: "Masterplan",
+                scale: "12,000 sqm"
+            },
+            {
+                title: "04. LIGHT & MATERIAL GALLERY",
+                meta: "Cultural / Exhibition / 2025",
+                img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
+                desc: "빛의 유입과 물질성(Materiality)의 미세한 변화를 극대화하는 전시 공간 설계안입니다.",
+                location: "Seoul, Korea",
+                program: "Gallery",
+                scale: "450 sqm"
+            }
+        ];
+
+        const sliderView = document.getElementById('sliderView');
+        const gridView = document.getElementById('gridView');
+        const detailView = document.getElementById('detailView');
+        
+        const logoBtn = document.getElementById('logoBtn');
+        const navProjects = document.getElementById('navProjects');
+        const backBtn = document.getElementById('backBtn');
+
+        const projectList = document.getElementById('projectList');
+        const wrappers = document.querySelectorAll('.project-wrapper');
+        const bgImages = document.querySelectorAll('.bg-image');
+        const currentIndexText = document.getElementById('currentIndexText');
+
+        let currentIndex = 0;
+        let isCoolingDown = false;
+        const totalItems = wrappers.length;
+
+        function resetViews() {
+            sliderView.classList.add('hidden');
+            gridView.classList.remove('active');
+            detailView.classList.remove('active');
+            document.body.classList.add('light-theme');
+            navProjects.classList.remove('active');
+        }
+
+        function openGridView() {
+            resetViews();
+            gridView.classList.add('active');
+            navProjects.classList.add('active');
+        }
+
+        function openDetailView(id) {
+            const data = projectsData[id];
+            document.getElementById('detailTitle').textContent = data.title;
+            document.getElementById('detailMeta').textContent = data.meta;
+            document.getElementById('detailImg').src = data.img;
+            document.getElementById('detailDesc').textContent = data.desc;
+            document.getElementById('specLoc').textContent = data.location;
+            document.getElementById('specProg').textContent = data.program;
+            document.getElementById('specScale').textContent = data.scale;
+
+            resetViews();
+            detailView.classList.add('active');
+        }
+
+        function openSliderView() {
+            gridView.classList.remove('active');
+            detailView.classList.remove('active');
+            sliderView.classList.remove('hidden');
+            document.body.classList.remove('light-theme');
+            navProjects.classList.remove('active');
+        }
+
+        function updateSlider(index) {
+            if (index < 0 || index >= totalItems) return;
+            currentIndex = index;
+
+            const wrapperHeight = wrappers[0].clientHeight;
+            const offset = -(currentIndex * wrapperHeight) + (wrapperHeight / 2) - 15;
+            projectList.style.transform = `translateY(${offset}px)`;
+
+            wrappers.forEach((wrapper, i) => {
+                if (i === currentIndex) wrapper.classList.add('active');
+                else wrapper.classList.remove('active');
+            });
+
+            bgImages.forEach((bg, i) => {
+                if (i === currentIndex) bg.classList.add('active');
+                else bg.classList.remove('active');
+            });
+
+            currentIndexText.textContent = String(currentIndex + 1).padStart(2, '0');
+        }
+
+        window.addEventListener('wheel', (e) => {
+            if (document.body.classList.contains('light-theme')) return;
+            if (isCoolingDown) return;
+
+            if (e.deltaY > 0) {
+                if (currentIndex < totalItems - 1) {
+                    updateSlider(currentIndex + 1);
+                    triggerCooldown();
+                }
+            } else {
+                if (currentIndex > 0) {
+                    updateSlider(currentIndex - 1);
+                    triggerCooldown();
+                }
+            }
+        });
+
+        function triggerCooldown() {
+            isCoolingDown = true;
+            setTimeout(() => { isCoolingDown = false; }, 600);
+        }
+
+        wrappers.forEach((wrapper) => {
+            wrapper.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const id = wrapper.getAttribute('data-id');
+                openDetailView(id);
+            });
+        });
+
+        document.querySelectorAll('.feed-card').forEach((card) => {
+            card.addEventListener('click', () => {
+                const id = card.getAttribute('data-id');
+                openDetailView(id);
+            });
+        });
+
+        navProjects.addEventListener('click', openGridView);
+        logoBtn.addEventListener('click', openSliderView);
+        backBtn.addEventListener('click', openSliderView);
+
+        window.addEventListener('load', () => {
+            updateSlider(0);
+        });
+    </script>
+</body>
+</html>
