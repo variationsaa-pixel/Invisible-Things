@@ -33,9 +33,7 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ----------------------------------
-           Header Navigation (Fixed Top)
-        ---------------------------------- */
+        /* Header Navigation */
         header {
             position: fixed;
             top: 0;
@@ -48,7 +46,6 @@
             z-index: 200;
         }
 
-        /* 회사명(로고) 비율 및 크기 키움 (10pt -> 13pt) */
         .logo {
             font-family: var(--font-main);
             font-size: 13pt;
@@ -80,7 +77,7 @@
             opacity: 1;
         }
 
-        /* Light Theme for Sub-pages (Grid & Detail) */
+        /* Light Theme for Sub-pages */
         body.light-theme header .logo, 
         body.light-theme header nav a {
             color: #1A1A1A;
@@ -236,9 +233,9 @@
         }
 
         /* ----------------------------------
-           VIEW 2: Instagram-Feed Style Projects Grid View
+           Common Sub-page View Setup
         ---------------------------------- */
-        .grid-view {
+        .sub-view {
             position: absolute;
             top: 0;
             left: 0;
@@ -254,11 +251,26 @@
             padding: 8rem 6% 5rem;
         }
 
-        .grid-view.active {
+        .sub-view.active {
             opacity: 1;
             visibility: visible;
         }
 
+        .page-title {
+            font-size: 14pt;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            margin-bottom: 2.5rem;
+            border-bottom: 1px solid #1A1A1A;
+            padding-bottom: 1rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ----------------------------------
+           VIEW 2: Projects Grid View
+        ---------------------------------- */
         .feed-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -267,13 +279,8 @@
             margin: 0 auto;
         }
 
-        @media (max-width: 900px) {
-            .feed-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 600px) {
-            .feed-grid { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 900px) { .feed-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .feed-grid { grid-template-columns: 1fr; } }
 
         .feed-card {
             cursor: pointer;
@@ -301,100 +308,112 @@
             align-items: center;
         }
 
-        .feed-card-title {
-            font-size: 8.5pt;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-        }
-
-        .feed-card-sub {
-            font-size: 7.5pt;
-            color: #888888;
-            letter-spacing: 0.05em;
-        }
+        .feed-card-title { font-size: 8.5pt; font-weight: 600; letter-spacing: 0.05em; }
+        .feed-card-sub { font-size: 7.5pt; color: #888888; letter-spacing: 0.05em; }
 
         /* ----------------------------------
-           VIEW 3: Single Project Detail View
+           VIEW 3: Project Detail View
         ---------------------------------- */
-        .detail-view {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-light);
-            color: #1A1A1A;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition-speed), visibility var(--transition-speed);
-            z-index: 30;
-            overflow-y: auto;
-            padding: 8rem 6% 5rem;
-        }
+        .detail-container { max-width: 1100px; margin: 0 auto; }
+        .detail-header { margin-bottom: 3rem; border-bottom: 1px solid #EEEEEE; padding-bottom: 2rem; }
+        .detail-title { font-size: 16pt; font-weight: 600; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .detail-meta { font-size: 8.5pt; color: #777777; letter-spacing: 0.08em; text-transform: uppercase; }
+        .detail-hero-img { width: 100%; max-height: 70vh; object-fit: cover; margin-bottom: 3rem; }
+        .detail-content { display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; line-height: 1.8; font-size: 9pt; color: #444444; }
+        @media (max-width: 768px) { .detail-content { grid-template-columns: 1fr; gap: 2rem; } }
+        .detail-specs { border-top: 1px solid #EEEEEE; padding-top: 1rem; font-size: 8pt; }
+        .detail-specs-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #F5F5F5; }
 
-        .detail-view.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .detail-container {
-            max-width: 1100px;
+        /* ----------------------------------
+           VIEW 4: ABOUT View (Extra Works)
+        ---------------------------------- */
+        .extra-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .detail-header {
-            margin-bottom: 3rem;
-            border-bottom: 1px solid #EEEEEE;
-            padding-bottom: 2rem;
+        @media (max-width: 900px) { .extra-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .extra-grid { grid-template-columns: 1fr; } }
+
+        .extra-card {
+            background: #FAFAFA;
+            border: 1px solid #EEEEEE;
+            padding: 2.5rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 220px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
-        .detail-title {
-            font-size: 16pt;
-            font-weight: 600;
-            letter-spacing: 0.05em;
+        .extra-card:hover {
+            transform: translateY(-3px);
+            border-color: #1A1A1A;
+        }
+
+        .extra-num { font-size: 8pt; color: #888888; font-weight: 500; }
+        .extra-title { font-size: 10.5pt; font-weight: 600; line-height: 1.5; color: #1A1A1A; }
+
+        /* ----------------------------------
+           VIEW 5: CONTACT View
+        ---------------------------------- */
+        .contact-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding-top: 1rem;
+        }
+
+        @media (max-width: 768px) { .contact-container { grid-template-columns: 1fr; gap: 3rem; } }
+
+        .contact-profile h2 {
+            font-size: 18pt;
+            font-weight: 700;
             margin-bottom: 0.5rem;
+            letter-spacing: 0.05em;
         }
 
-        .detail-meta {
-            font-size: 8.5pt;
+        .contact-profile .subtitle {
+            font-size: 9pt;
             color: #777777;
+            margin-bottom: 2.5rem;
+            letter-spacing: 0.08em;
+        }
+
+        .contact-info-list {
+            list-style: none;
+            font-size: 9pt;
+            line-height: 2;
+        }
+
+        .contact-info-list li span {
+            display: inline-block;
+            width: 90px;
+            color: #888888;
+            font-size: 8.5pt;
+        }
+
+        .contact-bio h3 {
+            font-size: 10pt;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .detail-hero-img {
-            width: 100%;
-            max-height: 70vh;
-            object-fit: cover;
-            margin-bottom: 3rem;
-        }
-
-        .detail-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-            line-height: 1.8;
-            font-size: 9pt;
+        .contact-bio p {
+            font-size: 9.5pt;
+            line-height: 1.85;
             color: #444444;
+            word-break: keep-all;
         }
 
-        @media (max-width: 768px) {
-            .detail-content { grid-template-columns: 1fr; gap: 2rem; }
-        }
-
-        .detail-specs {
-            border-top: 1px solid #EEEEEE;
-            padding-top: 1rem;
-            font-size: 8pt;
-        }
-
-        .detail-specs-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid #F5F5F5;
-        }
-
+        /* Back Button */
         .back-btn {
             position: fixed;
             bottom: 3rem;
@@ -413,14 +432,12 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.08);
         }
 
-        body.light-theme .back-btn {
-            display: block;
-        }
+        body.light-theme .back-btn { display: block; }
     </style>
 </head>
 <body>
 
-    <!-- Top Header -->
+    <!-- Header Navigation -->
     <header>
         <div class="logo" id="logoBtn">STUDIO VARA</div>
         <nav>
@@ -430,13 +447,14 @@
         </nav>
     </header>
 
-    <!-- VIEW 1: Wheel Scroll Main View -->
+    <!-- VIEW 1: Main Wheel Scroll View -->
     <div class="slider-view" id="sliderView">
         <div class="bg-container">
             <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
             <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
+            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80');"></div>
         </div>
 
         <div class="overlay"></div>
@@ -444,29 +462,34 @@
         <main class="project-slider">
             <div class="project-list" id="projectList">
                 <div class="project-wrapper active" data-id="0">
-                    <div class="project-item">01. BIODEGRADABLE VAULT PAVILION</div>
+                    <div class="project-item">01. 보이지 않는 것</div>
                     <div class="project-type">PAVILION / TEMPORARY STRUCTURE</div>
                 </div>
 
                 <div class="project-wrapper" data-id="1">
-                    <div class="project-item">02. INTERLOCKING SHELL INSTALLATION</div>
-                    <div class="project-type">RESEARCH / INSTALLATION</div>
+                    <div class="project-item">02. 작은 도시를 집에 담다.</div>
+                    <div class="project-type">RESIDENTIAL / HOUSING</div>
                 </div>
 
                 <div class="project-wrapper" data-id="2">
-                    <div class="project-item">03. ALL CITY CAMPUS MASTERPLAN</div>
+                    <div class="project-item">03. 스며드는 곳</div>
                     <div class="project-type">URBAN / ADAPTIVE REUSE</div>
                 </div>
 
                 <div class="project-wrapper" data-id="3">
-                    <div class="project-item">04. LIGHT & MATERIAL GALLERY</div>
-                    <div class="project-type">CULTURAL / EXHIBITION</div>
+                    <div class="project-item">04. 솔방울</div>
+                    <div class="project-type">INSTALLATION / STRUCTURE</div>
+                </div>
+
+                <div class="project-wrapper" data-id="4">
+                    <div class="project-item">05. ROSMARINUS</div>
+                    <div class="project-type">RESEARCH & DESIGN</div>
                 </div>
             </div>
         </main>
 
         <div class="footer-info">
-            <span id="currentIndexText">01</span> / 04
+            <span id="currentIndexText">01</span> / 05
         </div>
 
         <div class="scroll-indicator">
@@ -474,42 +497,50 @@
         </div>
     </div>
 
-    <!-- VIEW 2: Projects Feed View (Instagram Style Grid) -->
-    <div class="grid-view" id="gridView">
+    <!-- VIEW 2: PROJECTS Feed View -->
+    <div class="sub-view" id="gridView">
+        <h1 class="page-title">PROJECTS</h1>
         <div class="feed-grid">
             <div class="feed-card" data-id="0">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" alt="Project 1">
                 <div class="feed-card-info">
-                    <div class="feed-card-title">01. BIODEGRADABLE VAULT</div>
+                    <div class="feed-card-title">01. 보이지 않는 것</div>
                     <div class="feed-card-sub">2026</div>
                 </div>
             </div>
             <div class="feed-card" data-id="1">
                 <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80" alt="Project 2">
                 <div class="feed-card-info">
-                    <div class="feed-card-title">02. INTERLOCKING SHELL</div>
+                    <div class="feed-card-title">02. 작은 도시를 집에 담다.</div>
                     <div class="feed-card-sub">2025</div>
                 </div>
             </div>
             <div class="feed-card" data-id="2">
                 <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="Project 3">
                 <div class="feed-card-info">
-                    <div class="feed-card-title">03. ALL CITY CAMPUS</div>
+                    <div class="feed-card-title">03. 스며드는 곳</div>
                     <div class="feed-card-sub">2026</div>
                 </div>
             </div>
             <div class="feed-card" data-id="3">
                 <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="Project 4">
                 <div class="feed-card-info">
-                    <div class="feed-card-title">04. LIGHT & MATERIAL GALLERY</div>
+                    <div class="feed-card-title">04. 솔방울</div>
                     <div class="feed-card-sub">2025</div>
+                </div>
+            </div>
+            <div class="feed-card" data-id="4">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80" alt="Project 5">
+                <div class="feed-card-info">
+                    <div class="feed-card-title">05. ROSMARINUS</div>
+                    <div class="feed-card-sub">2026</div>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- VIEW 3: Single Project Detail View -->
-    <div class="detail-view" id="detailView">
+    <div class="sub-view" id="detailView">
         <div class="detail-container">
             <div class="detail-header">
                 <h1 class="detail-title" id="detailTitle">PROJECT TITLE</h1>
@@ -518,65 +549,135 @@
             <img class="detail-hero-img" id="detailImg" src="" alt="Detail Image">
             <div class="detail-content">
                 <div>
-                    <p id="detailDesc">프로젝트 상세 설명 내용이 들어가는 공간입니다. 자연 재료와 기하학적 형태의 상호작용을 탐구하며, 생분해성 구조 모듈 및 가벼운 쉘 구조 시스템을 제안합니다.</p>
+                    <p id="detailDesc">프로젝트 상세 설명 내용이 들어가는 공간입니다.</p>
                 </div>
                 <div class="detail-specs">
                     <div class="detail-specs-row"><span>Location</span><span id="specLoc">Seoul, Korea</span></div>
-                    <div class="detail-specs-row"><span>Program</span><span id="specProg">Pavilion</span></div>
-                    <div class="detail-specs-row"><span>Scale</span><span id="specScale">4.0m x 1.5m</span></div>
+                    <div class="detail-specs-row"><span>Program</span><span id="specProg">Architecture</span></div>
+                    <div class="detail-specs-row"><span>Scale</span><span id="specScale">-</span></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="back-btn" id="backBtn">← BACK</div>
+    <!-- VIEW 4: ABOUT View (Extra Works) -->
+    <div class="sub-view" id="aboutView">
+        <h1 class="page-title">ABOUT / EXTRA WORKS</h1>
+        <div class="extra-grid">
+            <div class="extra-card">
+                <div class="extra-num">01</div>
+                <div class="extra-title">2021 UAUS Team</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">02</div>
+                <div class="extra-title">2022 UAUS Team</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">03</div>
+                <div class="extra-title">중·남부 유럽 및 동지중해 자유여행</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">04</div>
+                <div class="extra-title">재료 탐구 활동</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">05</div>
+                <div class="extra-title">Archi Tree Camp</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">06</div>
+                <div class="extra-title">답;사이트 건축 캠프 활동</div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">07</div>
+                <div class="extra-title">종로건축 인문학교 1기<br><small style="font-weight:400; color:#666;">(기억만 남은 도시)</small></div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">08</div>
+                <div class="extra-title">2026 주거 트렌드<br><small style="font-weight:400; color:#666;">새로운 집을 만나다</small></div>
+            </div>
+            <div class="extra-card">
+                <div class="extra-num">09</div>
+                <div class="extra-title">2026 UAUS Team</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 5: CONTACT View -->
+    <div class="sub-view" id="contactView">
+        <h1 class="page-title">CONTACT</h1>
+        <div class="contact-container">
+            <div class="contact-profile">
+                <h2 id="contactName">Architect Name</h2>
+                <div class="subtitle">STUDIO VARA</div>
+                <ul class="contact-info-list">
+                    <li><span>TEL</span> <strong id="contactPhone">010-0000-0000</strong></li>
+                    <li><span>INSTAGRAM</span> <a id="contactInsta" href="#" target="_blank" style="color:#1A1A1A; text-decoration:none;">@studio_vara</a></li>
+                    <li><span>LOCATION</span> Seoul, South Korea</li>
+                </ul>
+            </div>
+            <div class="contact-bio">
+                <h3>BIOGRAPHY & PHILOSOPHY</h3>
+                <p id="contactBio">
+                    구조와 재료, 그리고 빛이 만들어내는 공간적 경험을 다룹니다. 생분해 소재 및 새로운 결합 체계에 대한 실험부터 도시 조직 속 유휴 공간의 재해석까지, 공간이 가질 수 있는 독창적인 지적 자본과 장소성을 탐구하고 있습니다.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="back-btn" id="backBtn">← BACK TO INDEX</div>
 
     <script>
+        // 프로젝트 데이터베이스
         const projectsData = [
             {
-                title: "01. BIODEGRADABLE VAULT PAVILION",
+                title: "01. 보이지 않는 것",
                 meta: "Pavilion / Temporary Structure / 2026",
                 img: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=80",
-                desc: "100% 생분해성 소재와 모듈러 상호 맞물림(Interlocking) 구조를 응용한 반원형 파빌리온 연구 프로젝트입니다. 거북이 등껍질의 봉합선 구조와 탄소 결합 트러스 시스템을 결합하여 재료의 약한 압축력을 지지하도록 설계되었습니다.",
-                location: "Seoul, Korea",
-                program: "Pavilion",
-                scale: "4.0m x 1.5m"
+                desc: "100% 생분해성 소재와 모듈러 상호 맞물림(Interlocking) 구조를 응용한 파빌리온 연구 프로젝트입니다. 거북이 등껍질의 봉합선 구조와 탄소 결합 트러스 시스템을 결합하여 지지력을 확보했습니다.",
+                location: "Seoul, Korea", program: "Pavilion", scale: "4.0m x 1.5m"
             },
             {
-                title: "02. INTERLOCKING SHELL INSTALLATION",
-                meta: "Research / Installation / 2025",
+                title: "02. 작은 도시를 집에 담다.",
+                meta: "Residential / Housing / 2025",
                 img: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1600&q=80",
-                desc: "3D 프린팅 접합 조인트와 천연 소재를 활용한 쉘 파빌리온 구조 실험입니다. 최소한의 자재로 구조적 일체성을 확보하는 조인트 모듈을 개발했습니다.",
-                location: "Gyeonggi, Korea",
-                program: "Installation",
-                scale: "3.5m x 2.0m"
+                desc: "주거 공간 내부에 도시의 골목과 마당 요소를 녹여내어 다채로운 공간감을 경험할 수 있도록 제안된 주거 프로젝트입니다.",
+                location: "Gyeonggi, Korea", program: "Residential", scale: "240 sqm"
             },
             {
-                title: "03. ALL CITY CAMPUS MASTERPLAN",
+                title: "03. 스며드는 곳",
                 meta: "Urban / Adaptive Reuse / 2026",
                 img: "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80",
-                desc: "기존 도시 유휴 부지 및 학교 시설을 지역 커뮤니티 공간으로 재해석한 유연한 단지 계획 프로젝트입니다.",
-                location: "Gimhae, Korea",
-                program: "Masterplan",
-                scale: "12,000 sqm"
+                desc: "도시 조직과 자연스럽게 결합하며 지역 커뮤니티 공간으로 스며드는 재생 건축 단지 계획안입니다.",
+                location: "Gimhae, Korea", program: "Masterplan", scale: "12,000 sqm"
             },
             {
-                title: "04. LIGHT & MATERIAL GALLERY",
-                meta: "Cultural / Exhibition / 2025",
+                title: "04. 솔방울",
+                meta: "Installation / Structure / 2025",
                 img: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=80",
-                desc: "빛의 유입과 물질성(Materiality)의 미세한 변화를 극대화하는 전시 공간 설계안입니다.",
-                location: "Seoul, Korea",
-                program: "Gallery",
-                scale: "450 sqm"
+                desc: "솔방울의 생체모방 구조에서 영감을 받아 환경 조건에 따라 가변하는 키네틱 조형 구조물 실험입니다.",
+                location: "Seoul, Korea", program: "Installation", scale: "3.0m x 3.0m"
+            },
+            {
+                title: "05. ROSMARINUS",
+                meta: "Research & Design / 2026",
+                img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1600&q=80",
+                desc: "자연 소재의 향과 질감을 공간적 레이어로 풀어낸 스튜디오 바라인만의 지속가능 디자인 연구안입니다.",
+                location: "Seoul, Korea", program: "Research", scale: "Custom"
             }
         ];
 
+        // DOM Elements
         const sliderView = document.getElementById('sliderView');
         const gridView = document.getElementById('gridView');
         const detailView = document.getElementById('detailView');
+        const aboutView = document.getElementById('aboutView');
+        const contactView = document.getElementById('contactView');
         
         const logoBtn = document.getElementById('logoBtn');
         const navProjects = document.getElementById('navProjects');
+        const navAbout = document.getElementById('navAbout');
+        const navContact = document.getElementById('navContact');
         const backBtn = document.getElementById('backBtn');
 
         const projectList = document.getElementById('projectList');
@@ -588,18 +689,42 @@
         let isCoolingDown = false;
         const totalItems = wrappers.length;
 
-        function resetViews() {
+        // View Control
+        function hideAllViews() {
             sliderView.classList.add('hidden');
             gridView.classList.remove('active');
             detailView.classList.remove('active');
+            aboutView.classList.remove('active');
+            contactView.classList.remove('active');
             document.body.classList.add('light-theme');
+            
             navProjects.classList.remove('active');
+            navAbout.classList.remove('active');
+            navContact.classList.remove('active');
+        }
+
+        function openSliderView() {
+            hideAllViews();
+            sliderView.classList.remove('hidden');
+            document.body.classList.remove('light-theme');
         }
 
         function openGridView() {
-            resetViews();
+            hideAllViews();
             gridView.classList.add('active');
             navProjects.classList.add('active');
+        }
+
+        function openAboutView() {
+            hideAllViews();
+            aboutView.classList.add('active');
+            navAbout.classList.add('active');
+        }
+
+        function openContactView() {
+            hideAllViews();
+            contactView.classList.add('active');
+            navContact.classList.add('active');
         }
 
         function openDetailView(id) {
@@ -612,18 +737,11 @@
             document.getElementById('specProg').textContent = data.program;
             document.getElementById('specScale').textContent = data.scale;
 
-            resetViews();
+            hideAllViews();
             detailView.classList.add('active');
         }
 
-        function openSliderView() {
-            gridView.classList.remove('active');
-            detailView.classList.remove('active');
-            sliderView.classList.remove('hidden');
-            document.body.classList.remove('light-theme');
-            navProjects.classList.remove('active');
-        }
-
+        // Wheel Control
         function updateSlider(index) {
             if (index < 0 || index >= totalItems) return;
             currentIndex = index;
@@ -667,6 +785,7 @@
             setTimeout(() => { isCoolingDown = false; }, 600);
         }
 
+        // Event Listeners
         wrappers.forEach((wrapper) => {
             wrapper.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -683,6 +802,8 @@
         });
 
         navProjects.addEventListener('click', openGridView);
+        navAbout.addEventListener('click', openAboutView);
+        navContact.addEventListener('click', openContactView);
         logoBtn.addEventListener('click', openSliderView);
         backBtn.addEventListener('click', openSliderView);
 
