@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Architecture Portfolio</title>
-    <!-- Google Fonts: Elegant Serif & Clean Sans-serif -->
+    <title>STUDIO ARCHITECTURE</title>
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg-color: #FDFBF7;
             --text-primary: #1A1A1A;
-            --text-secondary: #8C827A;
+            --text-muted: rgba(26, 26, 26, 0.2);
             --font-serif: 'Cormorant Garamond', serif;
             --font-sans: 'Inter', sans-serif;
-            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-speed: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -29,11 +29,54 @@
             background-color: var(--bg-color);
             color: var(--text-primary);
             font-family: var(--font-sans);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* 전체 페이지 수직 스크롤 대신 휠 이벤트 제어 */
+            height: 100vh;
+            width: 100vw;
         }
 
-        /* Navigation */
+        /* Fullscreen Background Images */
+        .bg-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            filter: blur(12px) brightness(0.95); /* 흐릿한 배경 효과 */
+            transform: scale(1.05);
+            transition: opacity var(--transition-speed), transform var(--transition-speed);
+        }
+
+        .bg-image.active {
+            opacity: 0.35; /* 글자가 잘 보이도록 투명도 조절 */
+            transform: scale(1);
+        }
+
+        /* Overlay for soft contrast */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(253,251,247,0.4) 0%, rgba(253,251,247,0.85) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Navigation Header */
         header {
             position: fixed;
             top: 0;
@@ -43,15 +86,13 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 100;
-            background: linear-gradient(to bottom, rgba(253,251,247,0.9) 0%, rgba(253,251,247,0) 100%);
+            z-index: 10;
         }
 
         .logo {
             font-family: var(--font-serif);
-            font-size: 1.5rem;
-            font-weight: 400;
-            letter-spacing: 0.05em;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
             text-decoration: none;
             color: var(--text-primary);
         }
@@ -60,221 +101,210 @@
             margin-left: 2.5rem;
             text-decoration: none;
             color: var(--text-primary);
-            font-size: 0.9rem;
-            font-weight: 300;
+            font-size: 0.85rem;
             letter-spacing: 0.05em;
-            transition: var(--transition-smooth);
-            opacity: 0.7;
+            opacity: 0.6;
+            transition: opacity 0.3s;
         }
 
         nav a:hover {
             opacity: 1;
         }
 
-        /* Hero Section */
-        .hero {
-            height: 80vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 5%;
-            margin-top: 5rem;
-        }
-
-        .hero h1 {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            font-weight: 300;
-            line-height: 1.2;
-            max-width: 900px;
-            margin-bottom: 2rem;
-        }
-
-        .hero p {
-            color: var(--text-secondary);
-            font-size: 1.1rem;
-            font-weight: 300;
-            max-width: 500px;
-        }
-
-        /* Project Grid */
-        .projects {
-            padding: 0 5% 10rem;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 2rem;
-            font-weight: 300;
-            margin-bottom: 4rem;
-            border-bottom: 1px solid rgba(140, 130, 122, 0.2);
-            padding-bottom: 1rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 5rem 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .project-card {
-            cursor: pointer;
-        }
-
-        .image-wrapper {
-            width: 100%;
-            height: 550px;
-            overflow: hidden;
-            background-color: #EFECE6;
-            margin-bottom: 1.5rem;
+        /* Center Wheel Project List */
+        .project-slider {
             position: relative;
-        }
-
-        .image-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: var(--transition-smooth);
-            filter: grayscale(20%);
-        }
-
-        .project-card:hover .image-wrapper img {
-            transform: scale(1.03);
-            filter: grayscale(0%);
-        }
-
-        .project-info {
+            z-index: 5;
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-        }
-
-        .project-title {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            font-weight: 400;
-        }
-
-        .project-category {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
-
-        /* Footer */
-        footer {
-            padding: 5rem 5%;
-            border-top: 1px solid rgba(140, 130, 122, 0.2);
-            display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
         }
 
-        .footer-text {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform var(--transition-speed);
+            will-change: transform;
+        }
+
+        .project-item {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 4vw, 3.8rem);
             font-weight: 300;
+            padding: 1.5rem 0;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color var(--transition-speed), transform var(--transition-speed), opacity var(--transition-speed);
+            text-align: center;
+            white-space: nowrap;
+            user-select: none;
+            opacity: 0.4;
         }
 
-        .social-links a {
+        .project-item.active {
             color: var(--text-primary);
-            text-decoration: none;
-            margin-left: 1.5rem;
-            font-size: 0.9rem;
-            opacity: 0.7;
-            transition: var(--transition-smooth);
+            opacity: 1;
+            transform: scale(1.08);
         }
 
-        .social-links a:hover {
-            opacity: 1;
+        /* Project Sub-info (Category / Year) */
+        .project-info {
+            position: fixed;
+            bottom: 3.5rem;
+            left: 5%;
+            z-index: 10;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: var(--text-primary);
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .project-info span {
+            display: inline-block;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+
+        /* Scroll Helper Indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 3.5rem;
+            right: 5%;
+            z-index: 10;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            opacity: 0.4;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
+    <!-- Background Images -->
+    <div class="bg-container">
+        <!-- 원하시는 이미지 주소로 src 주소를 교체하실 수 있습니다 -->
+        <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1920&q=80');"></div>
+    </div>
+
+    <div class="overlay"></div>
+
     <header>
         <a href="#" class="logo">STUDIO ARCHITECTURE</a>
         <nav>
-            <a href="#projects">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="#">Work</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1>Structure, material, and light forming spatial experience.</h1>
-            <p>자연 재료와 기하학적 형태의 상호작용을 다루는 건축 포트폴리오입니다.</p>
-        </section>
-
-        <section class="projects" id="projects">
-            <h2 class="section-title">Selected Projects</h2>
-            <div class="grid">
-                
-                <!-- Project 1 -->
-                <article class="project-card">
-                    <div class="image-wrapper">
-                        <!-- 이미지 경로 지정 (예: 파빌리온 렌더링/사진) -->
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Pavilion Project">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">01. Biodegradable Vault Pavilion</h3>
-                        <span class="project-category">Pavilion / 2026</span>
-                    </div>
-                </article>
-
-                <!-- Project 2 -->
-                <article class="project-card">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1200&q=80" alt="Architecture Project">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">02. Interlocking Shell Structure</h3>
-                        <span class="project-category">Research & Installation</span>
-                    </div>
-                </article>
-
-                <!-- Project 3 -->
-                <article class="project-card">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="Urban Design">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">03. All City Campus Masterplan</h3>
-                        <span class="project-category">Adaptive Reuse / Urban</span>
-                    </div>
-                </article>
-
-                <!-- Project 4 -->
-                <article class="project-card">
-                    <div class="image-wrapper">
-                        <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1200&q=80" alt="Material Study">
-                    </div>
-                    <div class="project-info">
-                        <h3 class="project-title">04. Material & Light Study</h3>
-                        <span class="project-category">Exhibition & Model</span>
-                    </div>
-                </article>
-
-            </div>
-        </section>
+    <main class="project-slider">
+        <div class="project-list" id="projectList">
+            <div class="project-item active" data-index="0" data-info="Pavilion / 2026">01. Biodegradable Vault Pavilion</div>
+            <div class="project-item" data-index="1" data-info="Research & Installation / 2025">02. Interlocking Shell Structure</div>
+            <div class="project-item" data-index="2" data-info="Adaptive Reuse / 2026">03. All City Campus Masterplan</div>
+            <div class="project-item" data-index="3" data-info="Exhibition & Model / 2025">04. Material & Light Study</div>
+        </div>
     </main>
 
-    <footer>
-        <span class="footer-text">© 2026 Architectural Studio. All rights reserved.</span>
-        <div class="social-links">
-            <a href="#">Instagram</a>
-            <a href="#">LinkedIn</a>
-            <a href="mailto:contact@architecture.com">Email</a>
-        </div>
-    </footer>
+    <div class="project-info">
+        <span id="infoText">Pavilion / 2026</span>
+    </div>
 
+    <div class="scroll-indicator">
+        Scroll to Explore
+    </div>
+
+    <script>
+        const projectList = document.getElementById('projectList');
+        const items = document.querySelectorAll('.project-item');
+        const bgImages = document.querySelectorAll('.bg-image');
+        const infoText = document.getElementById('infoText');
+
+        let currentIndex = 0;
+        let isCoolingDown = false;
+        const totalItems = items.length;
+
+        function updateSlider(index) {
+            if (index < 0 || index >= totalItems) return;
+
+            currentIndex = index;
+
+            // 1. 스크롤 위치 이동 (선택된 항목을 화면 중앙으로)
+            const itemHeight = items[0].clientHeight;
+            const offset = -(currentIndex * itemHeight) + (itemHeight / 2);
+            projectList.style.transform = `translateY(${offset}px)`;
+
+            // 2. 텍스트 활성화 클래스 변경
+            items.forEach((item, i) => {
+                if (i === currentIndex) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+
+            // 3. 배경 이미지 전환 (흐릿한 이미지 Fade In)
+            bgImages.forEach((bg, i) => {
+                if (i === currentIndex) {
+                    bg.classList.add('active');
+                } else {
+                    bg.classList.remove('active');
+                }
+            });
+
+            // 4. 하단 서브 정보 업데이트
+            infoText.style.opacity = '0';
+            infoText.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                infoText.textContent = items[currentIndex].getAttribute('data-info');
+                infoText.style.opacity = '0.7';
+                infoText.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // 마우스 휠 이벤트 처리
+        window.addEventListener('wheel', (e) => {
+            if (isCoolingDown) return;
+
+            if (e.deltaY > 0) {
+                // 아래로 스크롤
+                if (currentIndex < totalItems - 1) {
+                    updateSlider(currentIndex + 1);
+                    triggerCooldown();
+                }
+            } else {
+                // 위로 스크롤
+                if (currentIndex > 0) {
+                    updateSlider(currentIndex - 1);
+                    triggerCooldown();
+                }
+            }
+        });
+
+        // 연속 휠 동작 방지 (부드러운 전환)
+        function triggerCooldown() {
+            isCoolingDown = true;
+            setTimeout(() => {
+                isCoolingDown = false;
+            }, 700);
+        }
+
+        // 클릭 시 해당 항목으로 이동
+        items.forEach((item, i) => {
+            item.addEventListener('click', () => {
+                updateSlider(i);
+            });
+        });
+
+        // 초기 위치 설정
+        window.addEventListener('load', () => {
+            updateSlider(0);
+        });
+    </script>
 </body>
 </html>
