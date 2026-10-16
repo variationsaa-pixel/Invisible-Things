@@ -32,72 +32,9 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Header Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 2.5rem 6%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        .logo {
-            font-family: var(--font-main);
-            font-size: 10pt;
-            font-weight: 600;
-            letter-spacing: 0.15em;
-            text-decoration: none;
-            color: #FFFFFF;
-            cursor: pointer;
-        }
-
-        nav {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #FFFFFF;
-            font-size: 8pt;
-            font-weight: 400;
-            letter-spacing: 0.1em;
-            opacity: 0.6;
-            transition: opacity 0.3s;
-            cursor: pointer;
-        }
-
-        nav a:hover, nav a.active {
-            opacity: 1;
-        }
-
-        /* ----------------------------------
-           VIEW 1: Main Wheel Scroll Slider
-        ---------------------------------- */
-        .slider-view {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity var(--transition-speed), visibility var(--transition-speed);
-            z-index: 10;
-        }
-
-        .slider-view.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
+        /* Fullscreen Background Image Slider (stpmj Style Tone) */
         .bg-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -115,7 +52,7 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(0.75) contrast(1.05);
+            filter: brightness(0.75) contrast(1.05); /* stpmj 선명하면서 세련된 사진 톤 */
             transform: scale(1.02);
             transition: opacity var(--transition-speed), transform var(--transition-speed);
         }
@@ -125,8 +62,9 @@
             transform: scale(1);
         }
 
+        /* Dark Vignette Overlay for Text Legibility */
         .overlay {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -136,6 +74,44 @@
             pointer-events: none;
         }
 
+        /* Minimal Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 3rem 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: var(--font-main);
+            font-size: 10pt;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-decoration: none;
+            color: #FFFFFF;
+        }
+
+        nav a {
+            margin-left: 3rem;
+            text-decoration: none;
+            color: #FFFFFF;
+            font-size: 8pt;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        /* stpmj Style Vertical Index List */
         .project-slider {
             position: relative;
             z-index: 5;
@@ -162,6 +138,7 @@
             user-select: none;
         }
 
+        /* 메인 프로젝트 타이틀: Plus Jakarta Sans / 10pt */
         .project-item {
             font-family: var(--font-main);
             font-size: 10pt;
@@ -176,9 +153,10 @@
             color: #FFFFFF;
             font-weight: 600;
             opacity: 1;
-            transform: translateX(8px);
+            transform: translateX(8px); /* 활성화 시 미세한 이동 효과 */
         }
 
+        /* 서브 건축 정보: 흰 글씨 / 8pt */
         .project-type {
             font-family: var(--font-main);
             font-size: 8pt;
@@ -199,6 +177,7 @@
             max-height: 30px;
         }
 
+        /* Index Count / Footer Info */
         .footer-info {
             position: fixed;
             bottom: 3rem;
@@ -219,224 +198,64 @@
             color: rgba(255, 255, 255, 0.4);
             text-transform: uppercase;
         }
-
-        /* ----------------------------------
-           VIEW 2: stpmj Style 3-Column Grid
-        ---------------------------------- */
-        .grid-view {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #FFFFFF;
-            color: #1A1A1A;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity var(--transition-speed), visibility var(--transition-speed);
-            z-index: 20;
-            overflow-y: auto;
-            padding: 8rem 6% 5rem;
-        }
-
-        .grid-view.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .grid-view header .logo, .grid-view header nav a {
-            color: #1A1A1A;
-        }
-
-        /* 3-Column Grid Layout (stpmj Style) */
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 900px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 600px) {
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .gallery-item {
-            cursor: pointer;
-            overflow: hidden;
-            background-color: #F4F4F4;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            aspect-ratio: 4 / 3;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.03);
-            filter: brightness(0.95);
-        }
-
-        .gallery-info {
-            padding: 0.8rem 0 1.5rem;
-        }
-
-        .gallery-title {
-            font-size: 8.5pt;
-            font-weight: 500;
-            letter-spacing: 0.05em;
-        }
-
-        .gallery-category {
-            font-size: 7.5pt;
-            color: #777777;
-            margin-top: 0.2rem;
-            letter-spacing: 0.05em;
-        }
-
-        /* Back Button */
-        .back-btn {
-            position: fixed;
-            bottom: 3rem;
-            left: 6%;
-            z-index: 101;
-            font-size: 8pt;
-            letter-spacing: 0.1em;
-            color: #1A1A1A;
-            cursor: pointer;
-            display: none;
-            text-transform: uppercase;
-            font-weight: 500;
-        }
-
-        .grid-view.active + .back-btn {
-            display: block;
-        }
     </style>
 </head>
 <body>
 
+    <!-- Background Images -->
+    <div class="bg-container">
+        <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
+    </div>
+
+    <div class="overlay"></div>
+
     <header>
-        <div class="logo" id="logoBtn">STUDIO VARA</div>
+        <a href="#" class="logo">STUDIO VARA</a>
         <nav>
-            <a id="navWork">WORK</a>
-            <a id="navAbout">ABOUT</a>
-            <a id="navContact">CONTACT</a>
+            <a href="#">PROJECTS</a>
+            <a href="#">OFFICE</a>
+            <a href="#">CONTACT</a>
         </nav>
     </header>
 
-    <!-- VIEW 1: Wheel Slider Main View -->
-    <div class="slider-view" id="sliderView">
-        <div class="bg-container">
-            <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
-            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
-            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
-            <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
-        </div>
-
-        <div class="overlay"></div>
-
-        <main class="project-slider">
-            <div class="project-list" id="projectList">
-                <div class="project-wrapper active" data-index="0">
-                    <div class="project-item">01. BIODEGRADABLE VAULT PAVILION</div>
-                    <div class="project-type">PAVILION / TEMPORARY STRUCTURE</div>
-                </div>
-
-                <div class="project-wrapper" data-index="1">
-                    <div class="project-item">02. INTERLOCKING SHELL INSTALLATION</div>
-                    <div class="project-type">RESEARCH / INSTALLATION</div>
-                </div>
-
-                <div class="project-wrapper" data-index="2">
-                    <div class="project-item">03. ALL CITY CAMPUS MASTERPLAN</div>
-                    <div class="project-type">URBAN / ADAPTIVE REUSE</div>
-                </div>
-
-                <div class="project-wrapper" data-index="3">
-                    <div class="project-item">04. LIGHT & MATERIAL GALLERY</div>
-                    <div class="project-type">CULTURAL / EXHIBITION</div>
-                </div>
+    <main class="project-slider">
+        <div class="project-list" id="projectList">
+            
+            <div class="project-wrapper active" data-index="0">
+                <div class="project-item">01. BIODEGRADABLE VAULT PAVILION</div>
+                <div class="project-type">PAVILION / TEMPORARY STRUCTURE</div>
             </div>
-        </main>
 
-        <div class="footer-info">
-            <span id="currentIndexText">01</span> / 04
-        </div>
+            <div class="project-wrapper" data-index="1">
+                <div class="project-item">02. INTERLOCKING SHELL INSTALLATION</div>
+                <div class="project-type">RESEARCH / INSTALLATION</div>
+            </div>
 
-        <div class="scroll-indicator">
-            SCROLL TO EXPLORE
+            <div class="project-wrapper" data-index="2">
+                <div class="project-item">03. ALL CITY CAMPUS MASTERPLAN</div>
+                <div class="project-type">URBAN / ADAPTIVE REUSE</div>
+            </div>
+
+            <div class="project-wrapper" data-index="3">
+                <div class="project-item">04. LIGHT & MATERIAL GALLERY</div>
+                <div class="project-type">CULTURAL / EXHIBITION</div>
+            </div>
+
         </div>
+    </main>
+
+    <div class="footer-info">
+        <span id="currentIndexText">01</span> / 04
     </div>
 
-    <!-- VIEW 2: stpmj Style 3-Column Grid View -->
-    <div class="grid-view" id="gridView">
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="Project 1">
-                <div class="gallery-info">
-                    <div class="gallery-title">01. BIODEGRADABLE VAULT PAVILION</div>
-                    <div class="gallery-category">PAVILION / 2026</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1000&q=80" alt="Project 2">
-                <div class="gallery-info">
-                    <div class="gallery-title">02. INTERLOCKING SHELL INSTALLATION</div>
-                    <div class="gallery-category">INSTALLATION / 2025</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=80" alt="Project 3">
-                <div class="gallery-info">
-                    <div class="gallery-title">03. ALL CITY CAMPUS MASTERPLAN</div>
-                    <div class="gallery-category">URBAN / 2026</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1000&q=80" alt="Project 4">
-                <div class="gallery-info">
-                    <div class="gallery-title">04. LIGHT & MATERIAL GALLERY</div>
-                    <div class="gallery-category">CULTURAL / 2025</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?auto=format&fit=crop&w=1000&q=80" alt="Project 5">
-                <div class="gallery-info">
-                    <div class="gallery-title">05. FAÇADE LOUVER STUDY</div>
-                    <div class="gallery-category">FACADE / 2025</div>
-                </div>
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80" alt="Project 6">
-                <div class="gallery-info">
-                    <div class="gallery-title">06. CONCRETE VOID HOUSE</div>
-                    <div class="gallery-category">RESIDENTIAL / 2024</div>
-                </div>
-            </div>
-        </div>
+    <div class="scroll-indicator">
+        SCROLL TO EXPLORE
     </div>
-
-    <div class="back-btn" id="backBtn">← BACK TO INDEX</div>
 
     <script>
-        const sliderView = document.getElementById('sliderView');
-        const gridView = document.getElementById('gridView');
-        const backBtn = document.getElementById('backBtn');
-        const logoBtn = document.getElementById('logoBtn');
-        const navWork = document.getElementById('navWork');
-
         const projectList = document.getElementById('projectList');
         const wrappers = document.querySelectorAll('.project-wrapper');
         const bgImages = document.querySelectorAll('.bg-image');
@@ -446,29 +265,17 @@
         let isCoolingDown = false;
         const totalItems = wrappers.length;
 
-        // 뷰 전환 함수
-        function openGridView() {
-            sliderView.classList.add('hidden');
-            gridView.classList.add('active');
-            navWork.classList.add('active');
-        }
-
-        function openSliderView() {
-            gridView.classList.remove('active');
-            sliderView.classList.remove('hidden');
-            navWork.classList.remove('active');
-        }
-
-        // 마우스 휠 및 선택 스크롤 처리
         function updateSlider(index) {
             if (index < 0 || index >= totalItems) return;
 
             currentIndex = index;
 
+            // 1. 선택 항목 중앙 위치 계산
             const wrapperHeight = wrappers[0].clientHeight;
             const offset = -(currentIndex * wrapperHeight) + (wrapperHeight / 2) - 15;
             projectList.style.transform = `translateY(${offset}px)`;
 
+            // 2. 활성화 클래스 적용
             wrappers.forEach((wrapper, i) => {
                 if (i === currentIndex) {
                     wrapper.classList.add('active');
@@ -477,6 +284,7 @@
                 }
             });
 
+            // 3. 배경 이미지 전환 (stpmj 스타일 선명한 톤)
             bgImages.forEach((bg, i) => {
                 if (i === currentIndex) {
                     bg.classList.add('active');
@@ -485,11 +293,12 @@
                 }
             });
 
+            // 4. 하단 번호 인디케이터
             currentIndexText.textContent = String(currentIndex + 1).padStart(2, '0');
         }
 
+        // 마우스 휠 스크롤 제어
         window.addEventListener('wheel', (e) => {
-            if (gridView.classList.contains('active')) return;
             if (isCoolingDown) return;
 
             if (e.deltaY > 0) {
@@ -512,16 +321,17 @@
             }, 600);
         }
 
-        // 클릭 이벤트 등록
+        // 클릭으로 선택
         wrappers.forEach((wrapper, i) => {
             wrapper.addEventListener('click', () => {
-                if (i === currentIndex) {
-                    // 이미 선택되어 있는 프로젝트를 한 번 더 클릭하면 3열 그리드 갤러리로 이동
-                    openGridView();
-                } else {
-                    updateSlider(i);
-                }
+                updateSlider(i);
             });
         });
 
-        navWork.addEventListener('click
+        // 초기 실행
+        window.addEventListener('load', () => {
+            updateSlider(0);
+        });
+    </script>
+</body>
+</html>
