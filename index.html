@@ -4,19 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STUDIO VARA</title>
-    <!-- Google Fonts: Plus Jakarta Sans & Cormorant Garamond -->
+    <!-- Plus Jakarta Sans Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #FDFBF7;
-            --text-primary: #1A1A1A;
-            --text-muted: rgba(26, 26, 26, 0.3);
+            --bg-color: #0F0F0F;
             --font-main: 'Plus Jakarta Sans', sans-serif;
-            --font-serif: 'Cormorant Garamond', serif;
-            --transition-speed: 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-speed: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -27,14 +24,15 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
+            color: #FFFFFF;
             font-family: var(--font-main);
             overflow: hidden;
             height: 100vh;
             width: 100vw;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Fullscreen Background Images (더 선명하게 조정) */
+        /* Fullscreen Background Image Slider (stpmj Style Tone) */
         .bg-container {
             position: fixed;
             top: 0;
@@ -54,36 +52,35 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            /* 흐림 정도를 12px -> 4px로 줄여 조금 더 선명하게 연출 */
-            filter: blur(4px) brightness(0.85); 
-            transform: scale(1.03);
+            filter: brightness(0.75) contrast(1.05); /* stpmj 선명하면서 세련된 사진 톤 */
+            transform: scale(1.02);
             transition: opacity var(--transition-speed), transform var(--transition-speed);
         }
 
         .bg-image.active {
-            opacity: 0.65; /* 투명도를 올려 배경이 더 선명하게 노출됨 */
+            opacity: 0.85;
             transform: scale(1);
         }
 
-        /* Soft Contrast Overlay */
+        /* Dark Vignette Overlay for Text Legibility */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.25); /* 흰 글씨가 잘 보이도록 어둡게 은은한 오버레이 */
+            background: linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.2) 60%, rgba(0,0,0,0.4) 100%);
             z-index: 2;
             pointer-events: none;
         }
 
-        /* Header Navigation */
+        /* Minimal Header */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 2.5rem 5%;
+            padding: 3rem 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -92,43 +89,42 @@
 
         .logo {
             font-family: var(--font-main);
-            font-size: 11pt;
+            font-size: 10pt;
             font-weight: 600;
-            letter-spacing: 0.12em;
+            letter-spacing: 0.15em;
             text-decoration: none;
             color: #FFFFFF;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         nav a {
-            margin-left: 2.5rem;
+            margin-left: 3rem;
             text-decoration: none;
             color: #FFFFFF;
-            font-size: 8.5pt;
-            letter-spacing: 0.08em;
-            opacity: 0.7;
+            font-size: 8pt;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            opacity: 0.5;
             transition: opacity 0.3s;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         nav a:hover {
             opacity: 1;
         }
 
-        /* Center Project Slider */
+        /* stpmj Style Vertical Index List */
         .project-slider {
             position: relative;
             z-index: 5;
             height: 100vh;
             display: flex;
-            justify-content: center;
             align-items: center;
+            padding-left: 8%;
         }
 
         .project-list {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
             transition: transform var(--transition-speed);
             will-change: transform;
         }
@@ -136,74 +132,82 @@
         .project-wrapper {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            padding: 1.2rem 0;
+            align-items: flex-start;
+            padding: 1.1rem 0;
             cursor: pointer;
             user-select: none;
         }
 
-        /* 중심 글자: Plus Jakarta Sans / 10pt 설정 */
+        /* 메인 프로젝트 타이틀: Plus Jakarta Sans / 10pt */
         .project-item {
             font-family: var(--font-main);
             font-size: 10pt;
             font-weight: 400;
             letter-spacing: 0.08em;
-            color: rgba(255, 255, 255, 0.4);
-            text-align: center;
+            color: rgba(255, 255, 255, 0.35);
             white-space: nowrap;
-            transition: color var(--transition-speed), transform var(--transition-speed), opacity var(--transition-speed);
-            text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            transition: color var(--transition-speed), opacity var(--transition-speed), transform var(--transition-speed);
         }
 
         .project-wrapper.active .project-item {
             color: #FFFFFF;
             font-weight: 600;
-            transform: scale(1.05);
+            opacity: 1;
+            transform: translateX(8px); /* 활성화 시 미세한 이동 효과 */
         }
 
-        /* 프로젝트 하단 건축 형태 정보: 흰 글씨 / 8pt 설정 */
+        /* 서브 건축 정보: 흰 글씨 / 8pt */
         .project-type {
             font-family: var(--font-main);
             font-size: 8pt;
             font-weight: 300;
             letter-spacing: 0.1em;
-            color: #FFFFFF;
-            margin-top: 0.4rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 0.35rem;
             opacity: 0;
-            height: 0;
+            max-height: 0;
             overflow: hidden;
-            transition: opacity var(--transition-speed), height var(--transition-speed), margin-top var(--transition-speed);
+            transition: opacity var(--transition-speed), max-height var(--transition-speed), margin-top var(--transition-speed);
             text-transform: uppercase;
-            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            padding-left: 8px;
         }
 
         .project-wrapper.active .project-type {
             opacity: 0.9;
-            height: auto;
+            max-height: 30px;
         }
 
-        /* Scroll Helper Indicator */
+        /* Index Count / Footer Info */
+        .footer-info {
+            position: fixed;
+            bottom: 3rem;
+            left: 8%;
+            z-index: 10;
+            font-size: 8pt;
+            letter-spacing: 0.12em;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
         .scroll-indicator {
             position: fixed;
             bottom: 3rem;
-            right: 5%;
+            right: 6%;
             z-index: 10;
-            font-size: 7.5pt;
+            font-size: 8pt;
             letter-spacing: 0.12em;
-            color: #FFFFFF;
-            opacity: 0.5;
+            color: rgba(255, 255, 255, 0.4);
             text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
-    <!-- Background Images (배경 이미지 링크) -->
+    <!-- Background Images -->
     <div class="bg-container">
         <div class="bg-image active" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
-        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
         <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1920&q=80');"></div>
+        <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80');"></div>
     </div>
 
     <div class="overlay"></div>
@@ -211,119 +215,29 @@
     <header>
         <a href="#" class="logo">STUDIO VARA</a>
         <nav>
-            <a href="#">Work</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
+            <a href="#">PROJECTS</a>
+            <a href="#">OFFICE</a>
+            <a href="#">CONTACT</a>
         </nav>
     </header>
 
     <main class="project-slider">
         <div class="project-list" id="projectList">
             
-            <!-- 프로젝트 1 -->
             <div class="project-wrapper active" data-index="0">
-                <div class="project-item">01. BIODEGRADABLE VAULT</div>
-                <div class="project-type">Pavilion / Structure</div>
+                <div class="project-item">01. BIODEGRADABLE VAULT PAVILION</div>
+                <div class="project-type">PAVILION / TEMPORARY STRUCTURE</div>
             </div>
 
-            <!-- 프로젝트 2 -->
             <div class="project-wrapper" data-index="1">
-                <div class="project-item">02. METROPOLITAN TOWER</div>
-                <div class="project-type">Office / Commercial</div>
+                <div class="project-item">02. INTERLOCKING SHELL INSTALLATION</div>
+                <div class="project-type">RESEARCH / INSTALLATION</div>
             </div>
 
-            <!-- 프로젝트 3 -->
             <div class="project-wrapper" data-index="2">
-                <div class="project-item">03. ALL CITY CAMPUS</div>
-                <div class="project-type">Educational / Masterplan</div>
+                <div class="project-item">03. ALL CITY CAMPUS MASTERPLAN</div>
+                <div class="project-type">URBAN / ADAPTIVE REUSE</div>
             </div>
 
-            <!-- 프로젝트 4 -->
             <div class="project-wrapper" data-index="3">
-                <div class="project-item">04. LIGHT & CONCRETE GALLERY</div>
-                <div class="project-type">Cultural / Exhibition</div>
-            </div>
-
-        </div>
-    </main>
-
-    <div class="scroll-indicator">
-        Scroll to Explore
-    </div>
-
-    <script>
-        const projectList = document.getElementById('projectList');
-        const wrappers = document.querySelectorAll('.project-wrapper');
-        const bgImages = document.querySelectorAll('.bg-image');
-
-        let currentIndex = 0;
-        let isCoolingDown = false;
-        const totalItems = wrappers.length;
-
-        function updateSlider(index) {
-            if (index < 0 || index >= totalItems) return;
-
-            currentIndex = index;
-
-            // 1. 선택된 항목을 화면 중앙으로 이동
-            const wrapperHeight = wrappers[0].clientHeight;
-            const offset = -(currentIndex * wrapperHeight) + (wrapperHeight / 2) - 20;
-            projectList.style.transform = `translateY(${offset}px)`;
-
-            // 2. 클래스 변경 (활성화 항목 처리)
-            wrappers.forEach((wrapper, i) => {
-                if (i === currentIndex) {
-                    wrapper.classList.add('active');
-                } else {
-                    wrapper.classList.remove('active');
-                }
-            });
-
-            // 3. 배경 이미지 전환 (선명도 높아진 배경)
-            bgImages.forEach((bg, i) => {
-                if (i === currentIndex) {
-                    bg.classList.add('active');
-                } else {
-                    bg.classList.remove('active');
-                }
-            });
-        }
-
-        // 마우스 휠 스크롤 제어
-        window.addEventListener('wheel', (e) => {
-            if (isCoolingDown) return;
-
-            if (e.deltaY > 0) {
-                if (currentIndex < totalItems - 1) {
-                    updateSlider(currentIndex + 1);
-                    triggerCooldown();
-                }
-            } else {
-                if (currentIndex > 0) {
-                    updateSlider(currentIndex - 1);
-                    triggerCooldown();
-                }
-            }
-        });
-
-        function triggerCooldown() {
-            isCoolingDown = true;
-            setTimeout(() => {
-                isCoolingDown = false;
-            }, 600);
-        }
-
-        // 클릭 시 스크롤 이동
-        wrappers.forEach((wrapper, i) => {
-            wrapper.addEventListener('click', () => {
-                updateSlider(i);
-            });
-        });
-
-        // 초기 실행
-        window.addEventListener('load', () => {
-            updateSlider(0);
-        });
-    </script>
-</body>
-</html>
+                <div class="project-item">04. LIGHT &
